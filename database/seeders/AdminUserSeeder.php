@@ -19,14 +19,21 @@ class AdminUserSeeder extends Seeder
             [
                 'firstname' => 'Administrator',
                 'lastname' => 'Admin',
-                'middlename' => null,
-                'contact_number' => '09123456789',
+                'contact_number' => 'N/A',
                 'password' => Hash::make('admin123'),
                 'role' => 'admin',
                 'account_status' => 'approved',
                 'is_active' => true,
             ]
         );
+        
+        // Ensure role is properly set
+        $admin = User::where('email', 'admin@cliberduche.com')->first();
+        if ($admin) {
+            $admin->role = 'admin';
+            $admin->account_status = 'approved';
+            $admin->save();
+        }
     }
 }
 
